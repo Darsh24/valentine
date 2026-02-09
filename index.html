@@ -49,6 +49,54 @@
             position: relative;
         }
 
+        /* Modal styling */
+        .modal-bg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background: rgba(0, 0, 0, 0.55);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 450px;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            animation: popin 0.3s ease;
+        }
+
+        @keyframes popin {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal h2 {
+            text-align: center;
+            color: #d4004e;
+            margin-top: 0;
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: #ff4d79;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
         /* Floating hearts */
         .heart {
             position: fixed;
@@ -80,38 +128,59 @@
         <button id="noBtn">No</button>
     </div>
 
+    <!-- Modal -->
+    <div class="modal-bg" id="modalBg">
+        <div class="modal">
+            <h2>Think about it...</h2>
+
+            <!-- ❤️ YOUR CUSTOM PROS AND CONS LIST -->
+            <h3>Pros:</h3>
+            <ul>
+                <li>I’ll plan the cutest date for us and click your cute pictures</li>
+                <li>You’ll get unlimited attention and terrible jokes</li>
+                <li>I will carry your shopping bags</li>
+                <li>I will cook for you</li>
+            </ul>
+
+            <h3>Cons:</h3>
+            <ul>
+                <li>None. Literally none.</li>
+            </ul>
+            <!-- ❤️ END CUSTOM SECTION -->
+
+            <button class="close-btn" id="closeModal">Okay fine...</button>
+        </div>
+    </div>
+
     <script>
         const yesBtn = document.getElementById("yesBtn");
         const noBtn = document.getElementById("noBtn");
+        const modalBg = document.getElementById("modalBg");
+        const closeModal = document.getElementById("closeModal");
 
-        let firstClickDone = false; // tracks if she clicked No once
+        let firstClickDone = false;
 
-        // YES BUTTON
         yesBtn.addEventListener("click", () => {
             alert("I knew you'd say yes ❤️");
         });
 
-        // NO BUTTON CLICK — shows message only once
+        // First click: show modal instead of running away
         noBtn.addEventListener("click", () => {
             if (!firstClickDone) {
-                let message = "Are you sure?\n\n";
-
-                // ❤️ CUSTOM TEXT AREA — WRITE YOUR OWN LINES BELOW
-                message += "Take a second and think about this 😭\n";
-                message += "You really want to break my heart like that?\n";
-                message += "Give me a chance... I promise I’ll make it worth it ❤️";
-                // ❤️ END CUSTOM TEXT AREA
-
-                alert(message);
-                firstClickDone = true;
+                modalBg.style.display = "flex";
             }
         });
 
-        // AFTER FIRST CLICK → No button runs away
+        closeModal.addEventListener("click", () => {
+            modalBg.style.display = "none";
+            firstClickDone = true; // now button starts running away
+        });
+
+        // After first click → button runs away
         noBtn.addEventListener("mouseover", () => {
             if (firstClickDone) {
-                const x = Math.random() * (window.innerWidth - 100);
-                const y = Math.random() * (window.innerHeight - 100);
+                const x = Math.random() * (window.innerWidth - 120);
+                const y = Math.random() * (window.innerHeight - 120);
 
                 noBtn.style.position = "absolute";
                 noBtn.style.left = x + "px";
@@ -127,7 +196,6 @@
             heart.style.left = Math.random() * window.innerWidth + "px";
             heart.style.fontSize = Math.random() * 20 + 15 + "px";
             document.body.appendChild(heart);
-
             setTimeout(() => heart.remove(), 4000);
         }
 
@@ -136,3 +204,4 @@
 
 </body>
 </html>
+
