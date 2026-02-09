@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ms. Pooja Navlani.....Will You Be My Valentine?</title>
+    <title>Ms. Pooja Navlani… Will You Be My Valentine?</title>
+
     <style>
         body {
-            background: linear-gradient(to bottom right, #ffccd5, #ffe6ea);
             font-family: Arial, sans-serif;
+            background: pink;
             text-align: center;
-            padding-top: 100px;
-            overflow: hidden;
+            padding-top: 80px;
         }
 
         h1 {
-            font-size: 42px;
-            color: #d4004e;
+            font-size: 36px;
+            color: #d4006a;
             margin-bottom: 40px;
         }
 
@@ -27,182 +27,121 @@
             font-size: 22px;
             padding: 15px 35px;
             border: none;
+            border-radius: 10px;
             cursor: pointer;
-            border-radius: 12px;
-            transition: 0.2s ease-in-out;
-            position: relative;
+            transition: 0.3s;
         }
 
         #yesBtn {
-            background-color: #ff4d79;
+            background: #ff4081;
             color: white;
         }
 
+        /* Yes button grows when hovering */
         #yesBtn:hover {
             transform: scale(1.2);
+            background: #e6005c;
         }
 
         #noBtn {
-            background-color: #444;
+            background: #555;
             color: white;
             margin-left: 20px;
-            position: relative;
         }
 
-        /* Modal styling */
-        .modal-bg {
+        #noBtn:hover {
+            background: #333;
+        }
+
+        /* Popup background */
+        .popup-bg {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            height: 100vh;
-            width: 100vw;
-            background: rgba(0, 0, 0, 0.55);
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
             justify-content: center;
             align-items: center;
-            z-index: 10;
         }
 
-        .modal {
+        /* Popup box */
+        .popup-box {
             background: white;
             padding: 30px;
-            border-radius: 15px;
             width: 80%;
-            max-width: 450px;
+            max-width: 500px;
+            border-radius: 15px;
             text-align: left;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-            animation: popin 0.3s ease;
-        }
-
-        @keyframes popin {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal h2 {
-            text-align: center;
-            color: #d4004e;
-            margin-top: 0;
-        }
-
-        .close-btn {
-            margin-top: 20px;
-            width: 100%;
-            padding: 12px;
-            background: #ff4d79;
-            border: none;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
             font-size: 18px;
         }
 
-        /* Floating hearts */
-        .heart {
-            position: fixed;
-            bottom: -10px;
-            color: #ff4d79;
-            font-size: 20px;
-            animation: floatUp 5s linear infinite;
+        .closeBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ff4081;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
         }
 
-        @keyframes floatUp {
-            from {
-                transform: translateY(0) translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateY(-600px) translateX(40px);
-                opacity: 0;
-            }
+        .closeBtn:hover {
+            background: #d4006a;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Will you be my Valentine?</h1>
+    <h1>Ms. Pooja Navlani… will you be my Valentine?</h1>
 
     <div class="buttons">
         <button id="yesBtn">Yes</button>
         <button id="noBtn">No</button>
     </div>
 
-    <!-- Modal -->
-    <div class="modal-bg" id="modalBg">
-        <div class="modal">
-            <h2>Think about it...</h2>
+    <!-- Popup for Pros and Cons -->
+    <div id="popup" class="popup-bg">
+        <div class="popup-box">
+            <h2>Are you sure?</h2>
+            <p>If you're thinking about saying No… at least look at the Pros first 😉</p>
 
-            <!-- ❤️ YOUR CUSTOM PROS AND CONS LIST -->
-            <h3>Pros:</h3>
+            <h3>Pros</h3>
             <ul>
-                <li>I’ll plan the cutest dates and click even cuter pictures of us</li>
-                <li>You’ll get unlimited attention and terrible jokes</li>
-                <li>I will carry your shopping bags</li>
-                <li>I will cook for you</li>
-                <li>I’ll always get you out of any uncomfortable situation</li>
+                <li>I will always get you out of any uncomfortable situation.</li>
+                <li>I give elite level hugs.</li>
+                <li>I’ll spoil you with attention and mango lassis.</li>
+                <li>We will look adorable together in every photo.</li>
             </ul>
 
-            <h3>Cons:</h3>
+            <h3>Cons</h3>
             <ul>
-                <li>None. Literally none.</li>
+                <li>None detected. System malfunction. Please choose Yes.</li>
             </ul>
-            <!-- ❤️ END CUSTOM SECTION -->
 
-            <button class="close-btn" id="closeModal">Okay fine...</button>
+            <button class="closeBtn" onclick="closePopup()">Okay fine</button>
         </div>
     </div>
 
     <script>
         const yesBtn = document.getElementById("yesBtn");
         const noBtn = document.getElementById("noBtn");
-        const modalBg = document.getElementById("modalBg");
-        const closeModal = document.getElementById("closeModal");
-
-        let firstClickDone = false;
+        const popup = document.getElementById("popup");
 
         yesBtn.addEventListener("click", () => {
-            alert("I knew you'd say yes ❤️");
+            alert("Yay! I knew you'd say Yes ❤️");
         });
 
-        // First click: show modal instead of running away
         noBtn.addEventListener("click", () => {
-            if (!firstClickDone) {
-                modalBg.style.display = "flex";
-            }
+            popup.style.display = "flex";
         });
 
-        closeModal.addEventListener("click", () => {
-            modalBg.style.display = "none";
-            firstClickDone = true; // now button starts running away
-        });
-
-        // After first click → button runs away
-        noBtn.addEventListener("mouseover", () => {
-            if (firstClickDone) {
-                const x = Math.random() * (window.innerWidth - 120);
-                const y = Math.random() * (window.innerHeight - 120);
-
-                noBtn.style.position = "absolute";
-                noBtn.style.left = x + "px";
-                noBtn.style.top = y + "px";
-            }
-        });
-
-        // Floating hearts
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * window.innerWidth + "px";
-            heart.style.fontSize = Math.random() * 20 + 15 + "px";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 4000);
+        function closePopup() {
+            popup.style.display = "none";
         }
-
-        setInterval(createHeart, 400);
     </script>
 
 </body>
 </html>
-
